@@ -2,46 +2,68 @@ package fr.efrei.pokemon_tcg.models;
 
 import fr.efrei.pokemon_tcg.constants.TypePokemon;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Pokemon {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String uuid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(unique = true, nullable = false)
+    private String uuid;
 
-	private String nom;
+    private String nom;
+    private Integer vie;
+    private Integer etoile;
 
-	private Integer niveau;
+    @Enumerated(EnumType.STRING)
+    private TypePokemon type;
 
-	@Enumerated(EnumType.STRING)
-	private TypePokemon type;
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Attack> attackSet = new ArrayList<>();
 
-	public String getNom() {
-		return nom;
-	}
+    public String getUuid() {
+        return uuid;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public Integer getNiveau() {
-		return niveau;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public void setNiveau(Integer niveau) {
-		this.niveau = niveau;
-	}
+    public Integer getVie() {
+        return vie;
+    }
 
-	public TypePokemon getType() {
-		return type;
-	}
+    public void setVie(Integer vie) {
+        this.vie = vie;
+    }
 
-	public void setType(TypePokemon type) {
-		this.type = type;
-	}
+    public Integer getEtoile() {
+        return etoile;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public void setEtoile(Integer etoile) {
+        this.etoile = etoile;
+    }
+
+    public TypePokemon getType() {
+        return type;
+    }
+
+    public void setType(TypePokemon type) {
+        this.type = type;
+    }
+
+    public List<Attack> getAttackSet() {
+        return attackSet;
+    }
+
+    public void setAttackSet(List<Attack> attackSet) {
+        this.attackSet = attackSet;
+    }
 }

@@ -18,6 +18,8 @@ public class Dresseur {
 
 	private LocalDateTime deletedAt;
 
+	
+
 	@OneToMany
 	List<Pokemon> pokemonList;
 
