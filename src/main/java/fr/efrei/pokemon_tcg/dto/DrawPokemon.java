@@ -4,7 +4,7 @@ import fr.efrei.pokemon_tcg.constants.TypePokemon;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
-public class CapturePokemon {
+public class DrawPokemon {
 
 	private String uuid;
 
