@@ -1,5 +1,6 @@
 package fr.efrei.pokemon_tcg.controllers;
 
+import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
@@ -53,12 +54,12 @@ public class DresseurController {
 	}
 
 	@PatchMapping("/{uuid}/piocher")
-	public ResponseEntity<?> piocher(
-			@PathVariable String uuid,
-			@RequestBody DrawPokemon capturePokemon
-	) {
-		dresseurService.capturerPokemon(uuid, capturePokemon);
-
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<?> piocher(@PathVariable String uuid) {
+		try {
+			List<Pokemon> drawnPokemons = dresseurService.DrawPokemon(uuid);
+			return new ResponseEntity<>(drawnPokemons, HttpStatus.OK);
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 }

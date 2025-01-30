@@ -1,6 +1,7 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
-
+import fr.efrei.pokemon_tcg.models.Echange;
+import fr.efrei.pokemon_tcg.repositories.EchangeRepository;
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
@@ -12,9 +13,19 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DresseurServiceImpl implements IDresseurService {
+	@Override
+	public List<Pokemon> DrawPokemon(String uuid) {
+		return List.of();
+	}
+
+	@Override
+	public boolean echangerCartes(String uuid1, String uuid2, String pokemonUuid1, String pokemonUuid2) {
+		return false;
+	}
 
 	private final DresseurRepository repository;
 	private final IPokemonService pokemonService;
