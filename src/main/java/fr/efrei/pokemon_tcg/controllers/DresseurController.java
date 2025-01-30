@@ -1,6 +1,6 @@
 package fr.efrei.pokemon_tcg.controllers;
 
-import fr.efrei.pokemon_tcg.dto.CapturePokemon;
+import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
@@ -41,7 +41,7 @@ public class DresseurController {
 	@PatchMapping("/{uuid}/capturer")
 	public ResponseEntity<?> capturer(
 			@PathVariable String uuid,
-			@RequestBody CapturePokemon capturePokemon
+			@RequestBody DrawPokemon capturePokemon
 	) {
 		dresseurService.capturerPokemon(uuid, capturePokemon);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
