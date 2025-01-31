@@ -28,7 +28,6 @@ public class Echange {
 
     private LocalDate dateEchange;
 
-    // Getters et setters
     public String getUuid() {
         return uuid;
     }

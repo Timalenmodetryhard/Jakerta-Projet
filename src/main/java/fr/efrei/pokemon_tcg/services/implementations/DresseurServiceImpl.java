@@ -1,7 +1,5 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
-import fr.efrei.pokemon_tcg.models.Echange;
-import fr.efrei.pokemon_tcg.repositories.EchangeRepository;
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
@@ -10,13 +8,11 @@ import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
 import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DresseurServiceImpl implements IDresseurService {

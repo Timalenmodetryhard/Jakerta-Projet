@@ -3,9 +3,7 @@ package fr.efrei.pokemon_tcg.services;
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
-import fr.efrei.pokemon_tcg.models.Echange;
-import fr.efrei.pokemon_tcg.models.Pokemon;
-import fr.efrei.pokemon_tcg.repositories.EchangeRepository;
+
 
 
 import java.util.List;
