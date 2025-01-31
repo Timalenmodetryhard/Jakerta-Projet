@@ -62,4 +62,27 @@ public class DresseurController {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	@PatchMapping("/{uuid}/echanger")
+	public ResponseEntity<?> echangerCarte(
+			@PathVariable String uuid,
+			@RequestParam String pokemonUuid,
+			@RequestParam boolean versPrincipal
+	) {
+		dresseurService.echangerCartes(uuid, pokemonUuid, versPrincipal);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@PatchMapping("/{uuid1}/defier/{uuid2}")
+	public ResponseEntity<?> defier(
+			@PathVariable String uuid1,
+			@PathVariable String uuid2
+	) {
+		try {
+			dresseurService.defierDresseur(uuid1, uuid2);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (IllegalStateException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 }

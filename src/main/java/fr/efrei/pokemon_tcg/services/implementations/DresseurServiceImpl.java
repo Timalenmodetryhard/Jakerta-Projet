@@ -7,16 +7,23 @@ import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
 import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
+import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class DresseurServiceImpl implements IDresseurService {
+	private final DresseurRepository dresseurRepository;
+
+	private final PokemonRepository pokemonRepository;
+
 	@Override
 	public List<Pokemon> DrawPokemon(String uuid) {
 		return List.of();
@@ -29,14 +36,16 @@ public class DresseurServiceImpl implements IDresseurService {
 
 	private final DresseurRepository repository;
 	private final IPokemonService pokemonService;
-	public DresseurServiceImpl(DresseurRepository repository, PokemonServiceImpl pokemonService) {
+	public DresseurServiceImpl(DresseurRepository repository, PokemonServiceImpl pokemonService, DresseurRepository dresseurRepository, PokemonRepository pokemonRepository) {
 		this.repository = repository;
 		this.pokemonService = pokemonService;
+		this.dresseurRepository = dresseurRepository;
+		this.pokemonRepository = pokemonRepository;
 	}
 
 	@Override
 	public List<Dresseur> findAll() {
-		return repository.findAllByDeletedAtNull();
+		return dresseurRepository.findAllByDeletedAtIsNull();
 	}
 
 	@Override
@@ -72,4 +81,53 @@ public class DresseurServiceImpl implements IDresseurService {
 		repository.save(dresseur);
 		return true;
 	}
+
+	@Override
+	public void echangerCartes(String dresseurUuid, String pokemonUuid, boolean versPrincipal) {
+		Dresseur dresseur = dresseurRepository.findById(dresseurUuid)
+				.orElseThrow(() -> new IllegalArgumentException("Dresseur non trouvé"));
+
+		Pokemon pokemon = pokemonRepository.findById(pokemonUuid)
+				.orElseThrow(() -> new IllegalArgumentException("Pokemon non trouvé"));
+
+		if (versPrincipal) {
+			if (dresseur.getPaquetPrincipal().size() >= 5) {
+				throw new IllegalStateException("Le paquet principal est déjà plein.");
+			}
+			dresseur.getPaquetSecondaire().remove(pokemon);
+			dresseur.getPaquetPrincipal().add(pokemon);
+		} else {
+			dresseur.getPaquetPrincipal().remove(pokemon);
+			dresseur.getPaquetSecondaire().add(pokemon);
+		}
+
+		dresseurRepository.save(dresseur);
+	}
+
+	@Override
+	public void defierDresseur(String dresseur1Uuid, String dresseur2Uuid) {
+		Dresseur dresseur1 = dresseurRepository.findById(dresseur1Uuid)
+				.orElseThrow(() -> new IllegalArgumentException("Dresseur non trouvé"));
+		Dresseur dresseur2 = dresseurRepository.findById(dresseur2Uuid)
+				.orElseThrow(() -> new IllegalArgumentException("Dresseur non trouvé"));
+
+		if (dresseur1.getPaquetPrincipal().isEmpty() || dresseur2.getPaquetPrincipal().isEmpty()) {
+			throw new IllegalStateException("Un des dresseurs n'a pas de cartes en paquet principal.");
+		}
+
+		Dresseur gagnant = Math.random() > 0.5 ? dresseur1 : dresseur2;
+		Dresseur perdant = gagnant == dresseur1 ? dresseur2 : dresseur1;
+
+		Pokemon meilleureCarte = perdant.getPaquetPrincipal().stream()
+				.max(Comparator.comparing(Pokemon::getNiveau))
+				.orElseThrow(() -> new IllegalStateException("Le perdant n'a pas de cartes valides"));
+
+		perdant.getPaquetPrincipal().remove(meilleureCarte);
+		gagnant.getPaquetPrincipal().add(meilleureCarte);
+
+		dresseurRepository.save(dresseur1);
+		dresseurRepository.save(dresseur2);
+	}
+
+
 }

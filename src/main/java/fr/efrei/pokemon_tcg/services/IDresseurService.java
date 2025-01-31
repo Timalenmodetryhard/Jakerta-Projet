@@ -24,4 +24,7 @@ public interface IDresseurService<Pokemon> {
 
 
 	List<fr.efrei.pokemon_tcg.models.Pokemon> DrawPokemon(String uuid);
+	void echangerCartes(String dresseurUuid, String pokemonUuid, boolean versPrincipal);
+	void defierDresseur(String dresseur1Uuid, String dresseur2Uuid);
+
 }

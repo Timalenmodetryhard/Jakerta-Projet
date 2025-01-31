@@ -3,6 +3,7 @@ package fr.efrei.pokemon_tcg.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -60,4 +61,28 @@ public class Dresseur {
 	public void setPokemonList(List<Pokemon> pokemonList) {
 		this.pokemonList = pokemonList;
 	}
+	@OneToMany
+	@JoinColumn(name = "dresseur_uuid")
+	private List<Pokemon> paquetPrincipal = new ArrayList<>();
+
+	@OneToMany
+	@JoinColumn(name = "dresseur_uuid")
+	private List<Pokemon> paquetSecondaire = new ArrayList<>();
+
+	public List<Pokemon> getPaquetPrincipal() {
+		return paquetPrincipal;
+	}
+
+	public void setPaquetPrincipal(List<Pokemon> paquetPrincipal) {
+		this.paquetPrincipal = paquetPrincipal;
+	}
+
+	public List<Pokemon> getPaquetSecondaire() {
+		return paquetSecondaire;
+	}
+
+	public void setPaquetSecondaire(List<Pokemon> paquetSecondaire) {
+		this.paquetSecondaire = paquetSecondaire;
+	}
+
 }
