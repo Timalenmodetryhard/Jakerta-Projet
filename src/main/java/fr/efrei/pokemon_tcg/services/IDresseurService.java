@@ -1,10 +1,10 @@
 package fr.efrei.pokemon_tcg.services;
 
+import java.util.List;
+
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
-
-import java.util.List;
 
 public interface IDresseurService {
 
@@ -20,4 +20,7 @@ public interface IDresseurService {
 
 
 	List<fr.efrei.pokemon_tcg.models.Pokemon> DrawPokemon(String uuid);
+	void echangerCartes(String dresseurUuid, String pokemonUuid, boolean versPrincipal);
+	void defierDresseur(String dresseur1Uuid, String dresseur2Uuid);
+
 }
