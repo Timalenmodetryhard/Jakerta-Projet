@@ -1,9 +1,16 @@
 package fr.efrei.pokemon_tcg.models;
 
-import fr.efrei.pokemon_tcg.constants.TypePokemon;
-import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
+
+import fr.efrei.pokemon_tcg.constants.TypePokemon;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Pokemon {
@@ -20,8 +27,8 @@ public class Pokemon {
     @Enumerated(EnumType.STRING)
     private TypePokemon type;
 
-    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attack> attackSet = new ArrayList<>();
+    @ManyToMany()
+    private List<Attack> attackSet;
 
     public String getUuid() {
         return uuid;

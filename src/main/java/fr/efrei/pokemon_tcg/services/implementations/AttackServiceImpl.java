@@ -2,10 +2,13 @@ package fr.efrei.pokemon_tcg.services.implementations;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.models.Attack;
 import fr.efrei.pokemon_tcg.repositories.AttackRepository;
 import fr.efrei.pokemon_tcg.services.IAttackService;
 
+@Service
 public class AttackServiceImpl implements IAttackService {
     private final AttackRepository repository;
 

@@ -17,10 +17,6 @@ public class Attack {
     @Enumerated(EnumType.STRING)
     private TypePokemon type;
 
-    @ManyToOne
-    @JoinColumn(name = "pokemon_uuid", nullable = false)
-    private Pokemon pokemon;
-
     public String getUuid() {
         return uuid;
     }
@@ -59,13 +55,5 @@ public class Attack {
 
     public void setType(TypePokemon type) {
         this.type = type;
-    }
-
-    public Pokemon getPokemon() {
-        return pokemon;
-    }
-
-    public void setPokemon(Pokemon pokemon) {
-        this.pokemon = pokemon;
     }
 }

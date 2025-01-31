@@ -1,26 +1,28 @@
 package fr.efrei.pokemon_tcg.dto;
 
-import fr.efrei.pokemon_tcg.constants.TypePokemon;
-import fr.efrei.pokemon_tcg.models.Attack;
-import jakarta.validation.constraints.Positive;
-
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+
+import fr.efrei.pokemon_tcg.constants.TypePokemon;
+import fr.efrei.pokemon_tcg.models.Attack;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Positive;
 
 public class CreatePokemon {
 
 	@Length(min = 3, max = 20)
 	private String nom;
 
-	@Positive
-
 	private TypePokemon type;
 
+	@Positive
 	private Integer vie;
 
+	@Positive
 	private Integer etoile;
 
+	@OneToMany()
 	private List<Attack> attackSet;
 
 	public String getNom() {

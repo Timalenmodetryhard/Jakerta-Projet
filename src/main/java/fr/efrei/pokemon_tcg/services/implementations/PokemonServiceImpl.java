@@ -1,13 +1,14 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.constants.TypePokemon;
 import fr.efrei.pokemon_tcg.dto.CreatePokemon;
 import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PokemonServiceImpl implements IPokemonService {
@@ -31,7 +32,7 @@ public class PokemonServiceImpl implements IPokemonService {
 		Pokemon pokemonACreer = new Pokemon();
 		pokemonACreer.setNom(pokemon.getNom());
 		pokemonACreer.setVie(pokemon.getVie());
-		pokemonACreer.setEtoile(pokemon.getVie());
+		pokemonACreer.setEtoile(pokemon.getEtoile());
 		pokemonACreer.setType(pokemon.getType());
 		pokemonACreer.setAttackSet(pokemon.getAttackSet());
 		repository.save(pokemonACreer);

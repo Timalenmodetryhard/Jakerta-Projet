@@ -1,5 +1,10 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.models.Dresseur;
 import fr.efrei.pokemon_tcg.models.Echange;
 import fr.efrei.pokemon_tcg.models.Pokemon;
@@ -7,10 +12,6 @@ import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
 import fr.efrei.pokemon_tcg.repositories.EchangeRepository;
 import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.IEchangeService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.Optional;
 
 @Service
 public class EchangeServiceImpl implements IEchangeService {
@@ -55,6 +56,7 @@ public class EchangeServiceImpl implements IEchangeService {
         echange.setDateEchange(LocalDate.now());
 
         echangeRepository.save(echange);
+        System.out.println("Pokémon capturé ! Dresseur: " + dresseur1.getNom() + " a échangé " + pokemon1.getNom() + " pour "+ pokemon2.getNom() + " de " + dresseur2);
         return true;
     }
 }

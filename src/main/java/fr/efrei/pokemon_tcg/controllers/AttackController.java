@@ -2,7 +2,6 @@ package fr.efrei.pokemon_tcg.controllers;
 
 import fr.efrei.pokemon_tcg.models.Attack;
 import fr.efrei.pokemon_tcg.services.IAttackService;
-import fr.efrei.pokemon_tcg.services.IItemService;
 import fr.efrei.pokemon_tcg.services.implementations.AttackServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

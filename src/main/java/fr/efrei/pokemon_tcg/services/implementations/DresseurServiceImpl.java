@@ -1,7 +1,10 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
-import fr.efrei.pokemon_tcg.models.Echange;
-import fr.efrei.pokemon_tcg.repositories.EchangeRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
@@ -9,11 +12,6 @@ import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.DresseurRepository;
 import fr.efrei.pokemon_tcg.services.IDresseurService;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DresseurServiceImpl implements IDresseurService {
@@ -44,11 +42,18 @@ public class DresseurServiceImpl implements IDresseurService {
 		return repository.findById(uuid).orElse(null);
 	}
 
+	@Override
 	public void capturerPokemon(String uuid, DrawPokemon capturePokemon) {
 		Dresseur dresseur = findById(uuid);
 		Pokemon pokemon = pokemonService.findById(capturePokemon.getUuid());
+		if (dresseur == null || pokemon == null) {
+			throw new IllegalStateException("Dresseur ou Pokémon introuvable !");
+		}
+	
 		dresseur.getPokemonList().add(pokemon);
 		repository.save(dresseur);
+	
+		System.out.println("Pokémon capturé ! Dresseur: " + dresseur.getNom() + " a capturé " + pokemon.getNom());
 	}
 
 	@Override

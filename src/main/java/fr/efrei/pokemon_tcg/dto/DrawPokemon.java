@@ -9,39 +9,41 @@ import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
 
 public class DrawPokemon {
-	private String uuid;
-	private LocalDate lastDrawDate;
-	private final IPokemonService pokemonService;
+    private String uuid;
+    private LocalDate lastDrawDate;
+    private IPokemonService pokemonService;
 
-	public DrawPokemon(IPokemonService pokemonService) {
-		this.pokemonService = pokemonService;
-		this.lastDrawDate = null;
-	}
+    public DrawPokemon() {}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public DrawPokemon(IPokemonService pokemonService) {
+        this.pokemonService = pokemonService;
+        this.lastDrawDate = null;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public List<Pokemon> drawDailyPokemons() {
-		LocalDate today = LocalDate.now();
-		if (lastDrawDate != null && lastDrawDate.isEqual(today)) {
-			throw new IllegalStateException("Vous avez déjà tiré vos cartes aujourd'hui !");
-		}
+    public String getUuid() {
+        return uuid;
+    }
 
-		lastDrawDate = today;
-		List<Pokemon> allPokemons = pokemonService.findAll(null);
-		List<Pokemon> drawnPokemons = new ArrayList<>();
-		Random random = new Random();
+    public List<Pokemon> drawDailyPokemons() {
+        LocalDate today = LocalDate.now();
+        if (lastDrawDate != null && lastDrawDate.isEqual(today)) {
+            throw new IllegalStateException("Vous avez déjà tiré vos cartes aujourd'hui !");
+        }
 
-		for (int i = 0; i < 5; i++) {
-			int index = random.nextInt(allPokemons.size());
-			drawnPokemons.add(allPokemons.get(index));
-		}
+        lastDrawDate = today;
+        List<Pokemon> allPokemons = pokemonService.findAll(null);
+        List<Pokemon> drawnPokemons = new ArrayList<>();
+        Random random = new Random();
 
-		return drawnPokemons;
-	}
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(allPokemons.size());
+            drawnPokemons.add(allPokemons.get(index));
+        }
+
+        return drawnPokemons;
+    }
 }
