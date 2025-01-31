@@ -7,67 +7,53 @@ import jakarta.persistence.*;
 public class Attack {
     
     @Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String uuid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String uuid;
 
-	private String nom;
-
+    private String nom;
     private String description;
-
     private Integer degat;
 
     @Enumerated(EnumType.STRING)
-	private TypePokemon type;
-    
-	@OneToOne
-	@JoinColumn(name = "dresseur_uuid")
-	private Pokemon pokemon;
+    private TypePokemon type;
 
-	public String getUuid() {
-		return uuid;
-	}
+    public String getUuid() {
+        return uuid;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     public String getDescription() {
-		return description;
-	}
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Pokemon getPokemon() {
-		return pokemon;
-	}
-
-	public void setPokemon(Pokemon pokemon) {
-		this.pokemon = pokemon;
-	}
-
-    public TypePokemon getType() {
-		return type;
-	}
-
-	public void setType(TypePokemon type) {
-		this.type = type;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Integer getDegat() {
-		return degat;
-	}
+        return degat;
+    }
 
-	public void setType(Integer degat) {
-		this.degat = degat;
-	}
+    public void setDegat(Integer degat) {
+        this.degat = degat;
+    }
+
+    public TypePokemon getType() {
+        return type;
+    }
+
+    public void setType(TypePokemon type) {
+        this.type = type;
+    }
 }

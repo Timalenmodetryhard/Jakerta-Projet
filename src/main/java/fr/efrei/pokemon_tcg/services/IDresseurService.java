@@ -1,14 +1,12 @@
 package fr.efrei.pokemon_tcg.services;
 
+import java.util.List;
+
 import fr.efrei.pokemon_tcg.dto.DrawPokemon;
 import fr.efrei.pokemon_tcg.dto.DresseurDTO;
 import fr.efrei.pokemon_tcg.models.Dresseur;
 
-
-
-import java.util.List;
-
-public interface IDresseurService<Pokemon> {
+public interface IDresseurService {
 
 	List<Dresseur> findAll();
 	Dresseur findById(String uuid);

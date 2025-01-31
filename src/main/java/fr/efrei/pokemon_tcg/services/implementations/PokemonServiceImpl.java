@@ -1,13 +1,14 @@
 package fr.efrei.pokemon_tcg.services.implementations;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import fr.efrei.pokemon_tcg.constants.TypePokemon;
 import fr.efrei.pokemon_tcg.dto.CreatePokemon;
 import fr.efrei.pokemon_tcg.models.Pokemon;
 import fr.efrei.pokemon_tcg.repositories.PokemonRepository;
 import fr.efrei.pokemon_tcg.services.IPokemonService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PokemonServiceImpl implements IPokemonService {
@@ -29,9 +30,11 @@ public class PokemonServiceImpl implements IPokemonService {
 	@Override
 	public void create(CreatePokemon pokemon) {
 		Pokemon pokemonACreer = new Pokemon();
-		pokemonACreer.setType(pokemon.getType());
 		pokemonACreer.setNom(pokemon.getNom());
-		pokemonACreer.setNiveau(pokemon.getNiveau());
+		pokemonACreer.setVie(pokemon.getVie());
+		pokemonACreer.setEtoile(pokemon.getEtoile());
+		pokemonACreer.setType(pokemon.getType());
+		pokemonACreer.setAttackSet(pokemon.getAttackSet());
 		repository.save(pokemonACreer);
 	}
 
@@ -47,8 +50,10 @@ public class PokemonServiceImpl implements IPokemonService {
 			return false;
 		}
 		pokemonAModifier.setNom(pokemon.getNom());
-		pokemonAModifier.setNiveau(pokemon.getNiveau());
+		pokemonAModifier.setVie(pokemon.getVie());
+		pokemonAModifier.setEtoile(pokemon.getVie());
 		pokemonAModifier.setType(pokemon.getType());
+		pokemonAModifier.setAttackSet(pokemon.getAttackSet());
 		repository.save(pokemonAModifier);
 		return true;
 	}
